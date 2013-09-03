@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.2.xsd">
+	 		
+	 <!-- Cache -->
+	<cache:annotation-driven />
+	<bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager" c:template-ref="redisTemplate"/>
+
+	<!-- Connection -->
+	<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+  			p:host-name="14.63.214.67" p:port="6379" p:password="" p:use-pool="true" />
+<!-- 	<bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" -->
+<!--   			p:host-name="localhost" p:port="6379" p:password="" p:use-pool="true" /> -->
+ 
+	 <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
+	 		p:connection-factory-ref="connectionFactory" />
+
+</beans>

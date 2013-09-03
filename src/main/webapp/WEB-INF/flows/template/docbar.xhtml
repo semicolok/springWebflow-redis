@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>docbar.xhtml</title>
+</h:head>
+<h:body>
+	<ui:composition>
+		<p:dock>
+			<p:menuitem label="Finder" icon="/resources/images/macosx/finder.png" url="main" />
+			<p:menuitem label="Post" icon="/resources/images/macosx/twitter-bird-light-bgs.png" url="witter" />
+			<p:menuitem label="TimeLine" icon="/resources/images/macosx/icon-event-timeline-internal.png" url="time" />
+			<p:menuitem label="Friend Map" icon="/resources/images/macosx/MyThoughts_for_Mac_Icon.png" url="mind" />
+			<p:menuitem label="Graph" icon="/resources/images/macosx/graph-icon3.png" url="graph" />
+		</p:dock>
+	
+		<p:stack icon="/resources/images/stack/stack.png" >
+			<p:menuitem value="Finder" icon="/resources/images/macosx/finder.png" url="main" />
+			<p:menuitem value="Post" icon="/resources/images/macosx/twitter-bird-light-bgs.png" url="witter" />
+			<p:menuitem value="TimeLine" icon="/resources/images/macosx/icon-event-timeline-internal.png" url="time" />
+			<p:menuitem value="FriendMap" icon="/resources/images/macosx/MyThoughts_for_Mac_Icon.png" url="mind" />
+			<p:menuitem value="Graph" icon="/resources/images/macosx/graph-icon3.png" url="graph" />
+		</p:stack>
+	</ui:composition>
+
+</h:body>
+</html>

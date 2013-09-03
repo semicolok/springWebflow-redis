@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:faces="http://www.springframework.org/schema/faces"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/faces http://www.springframework.org/schema/faces/spring-faces-2.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+    <beans:import resource="webflow.xml" /> 
+    <context:component-scan base-package="com.jknyou.redis.controller" />
+	<annotation-driven />
+
+	<resources mapping="/resources/**" location="/resources/" />
+	
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0" />
+	<beans:bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" p:contentType="text/plain" />
+
+<!-- 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:order="1" -->
+<!-- 				p:prefix="/WEB-INF/views/" p:suffix=".jsp" /> -->
+
+	<beans:bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:viewClass="org.springframework.faces.mvc.JsfView"
+				p:prefix="/WEB-INF/flows/" p:suffix=".xhtml" />
+	
+	<faces:resources />
+	
+	<beans:bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping" p:flowRegistry-ref="flowRegistry" />
+
+	<!-- Dispatches requests mapped to org.springframework.web.servlet.mvc.Controller 
+		implementations -->
+	<beans:bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+	<beans:bean class="org.springframework.faces.webflow.JsfFlowHandlerAdapter" p:flowExecutor-ref="flowExecutor" />
+</beans:beans>

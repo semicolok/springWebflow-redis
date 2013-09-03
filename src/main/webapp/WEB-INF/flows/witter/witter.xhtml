@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html">
+
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Post</title>
+	</h:head>
+	<h:body>
+		
+		<p:layout fullPage="true">
+
+			<p:layoutUnit position="north" size="100" header="Post" resizable="true" collapsible="true">
+				<h:outputText value="Post" />
+			</p:layoutUnit>
+			
+			<p:layoutUnit position="east" size="200" header="Follow" resizable="true" collapsible="true" effect="drop">  
+		       <h:form>
+			       	<h3>Follows</h3>  
+						<p:dataList value="#{witterView.follows}" var="follow" itemType="square">  
+						    #{follow}
+						</p:dataList>
+			       	<h3>Following</h3>  
+						<p:dataList value="#{witterView.followings}" var="following" itemType="square">  
+						    #{following}
+						</p:dataList>
+		       </h:form>
+		    </p:layoutUnit>
+		    
+			<p:layoutUnit position="center">
+				<h:form>
+					Welcome jknyou <br />
+					<p:inputTextarea ajax="true" immediate="true" rows="6" cols="33" id="messageArea"
+						autoResize="false" value="#{witterView.message}"
+						label="text" maxHeight="180">
+						<p:ajax event="blur" />
+					</p:inputTextarea>
+					<p:commandButton value="post" actionListener="#{witterView.postMessage}" update="postList,messageArea"/>
+					<p:dataGrid var="post" value="#{witterView.posts}" columns="5" rows="12" paginator="true"  
+				        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+				        rowsPerPageTemplate="9,12,15" id="postList">  
+				  
+				        <p:panel header="#{post.name}" style="text-align:center">  
+				            <h:panelGrid columns="1" style="width:100%">  
+				                <h:outputText value="#{post.content}" />  
+				  
+<!-- 				                <p:commandLink oncomplete="postDialog.show()" title="View Detail" update="postDetail">   -->
+				                <p:commandLink oncomplete="postDialog.show()" title="View Detail" >  
+				                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
+				                    <f:setPropertyActionListener value="#{post}"  target="#{witterView.selectedPost}" />  
+				                </p:commandLink>  
+				            </h:panelGrid>  
+				        </p:panel>  
+				  
+				    </p:dataGrid> 
+
+				</h:form>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="south" size="100" collapsible="true">
+				<h:form>
+					<ui:include src="/WEB-INF/flows/template/docbar.xhtml"></ui:include>
+				</h:form>
+			</p:layoutUnit>
+		</p:layout>
+	    <p:dialog header="Post Detail" widgetVar="postDialog" modal="true" >  
+	        <p:outputPanel  id="postDetail" style="text-align:center;" layout="block">  
+	          
+	            <h:panelGrid  columns="2" cellpadding="5">  
+	                <h:outputLabel for="postName" value="Name: " />  
+	                <h:outputText id="postName" value="#{witterView.selectedPost.name}" />  
+	                  
+	                <h:outputLabel for="content" value="Content: " />  
+	                <h:outputText id="content" value="#{witterView.selectedPost.content}" />  
+	                  
+	            </h:panelGrid>  
+	        </p:outputPanel>  
+	    </p:dialog>
+	</h:body>
+</f:view>
+</html>
